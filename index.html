@@ -4,49 +4,115 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cladistica Series Carousel</title>
+
   <style>
-    body { margin: 0; font-family: system-ui, -apple-system, sans-serif; background: transparent; }
+    :root{
+      --card-w: 340px;     /* width of each card */
+      --thumb-h: 170px;    /* image height */
+      --radius: 18px;
+      --border: rgba(0,0,0,.15);
+      --border-hover: rgba(0,0,0,.30);
+      --bg: rgba(255,255,255,.92);
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: transparent;
+    }
+
     .wrap { padding: 12px; }
-    .title { font-size: 14px; letter-spacing: .02em; opacity: .8; margin: 0 0 10px 2px; }
+
+    .title {
+      font-size: 14px;
+      letter-spacing: .02em;
+      opacity: .8;
+      margin: 0 0 10px 2px;
+    }
+
     .rail {
-      display: flex; gap: 12px;
-      overflow-x: auto; padding: 4px 2px 10px 2px;
+      display: flex;
+      gap: 14px;
+      overflow-x: auto;
+      padding: 2px 2px 10px 2px;
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
     }
+
     .card {
-      min-width: 240px; max-width: 240px;
-      border: 1px solid rgba(0,0,0,.15);
-      border-radius: 14px;
-      padding: 12px;
-      background: rgba(255,255,255,.9);
+      min-width: var(--card-w);
+      max-width: var(--card-w);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;              /* makes image respect rounded corners */
+      background: var(--bg);
       scroll-snap-align: start;
       text-decoration: none;
       color: inherit;
+      display: flex;
+      flex-direction: column;
     }
-    .card:hover { border-color: rgba(0,0,0,.35); }
-    .card h3 { margin: 0 0 6px 0; font-size: 16px; }
-    .card p { margin: 0; font-size: 13px; line-height: 1.35; opacity: .85; }
-    .hint { font-size: 12px; opacity: .6; margin: 8px 2px 0 2px; }
+
+    .card:hover { border-color: var(--border-hover); }
+
+    .thumb {
+      width: 100%;
+      height: var(--thumb-h);
+      object-fit: cover;             /* key: crops like a thumbnail */
+      object-position: center;
+      display: block;
+      background: #f2f2f2;
+    }
+
+    .meta { padding: 14px; }
+
+    .card h3 {
+      margin: 0 0 8px 0;
+      font-size: 22px;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+    }
+
+    .card p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.45;
+      opacity: .85;
+    }
+
+    .hint {
+      font-size: 12px;
+      opacity: .6;
+      margin: 8px 2px 0 2px;
+    }
   </style>
 </head>
+
 <body>
   <div class="wrap">
-    <div class="title">Series</div>
+    <div class="title">Explore</div>
 
-    <a class="card" href="PASTE_SERIES_LINK" target="_blank" rel="noopener">
-  <img class="thumb" src="https://upload.wikimedia.org/wikipedia/commons/7/71/Ara_tricolor.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original" alt="Series thumbnail" />
-  <div class="meta">
-    <h3>Hypothetical Taxa</h3>
-    <p>Some species are inferred entirely from fragments of fossils, remains, and historic accounts. They make for some of the most interesting to speculate about!.</p>
-  </div>
+    <div class="rail">
+      <a class="card" href="PASTE_SERIES_LINK" target="_blank" rel="noopener">
+        <img class="thumb"
+          src="https://upload.wikimedia.org/wikipedia/commons/7/71/Ara_tricolor.jpg"
+          alt="Hypothetical Taxa thumbnail" />
+        <div class="meta">
+          <h3>Hypothetical Taxa</h3>
+          <p>Some species are inferred entirely from fragments of fossils, remains, and historic accounts. They make for some of the most interesting to speculate about!</p>
+        </div>
+      </a>
 
       <a class="card" href="PASTE_SERIES_LINK" target="_blank" rel="noopener">
-  <img class="thumb" src="https://static.wikia.nocookie.net/cryptidz/images/9/9d/D_minimus_2.png/revision/latest?cb=20250126050713" alt="Series thumbnail" />
-  <div class="meta">
-    <h3>Single Sighting Species</h3>
-    <p>Entire species are known from just one sighting! Where did they go? Did they ever exist at all?...</p>
-  </div>
+        <img class="thumb"
+          src="https://static.wikia.nocookie.net/cryptidz/images/9/9d/D_minimus_2.png/revision/latest?cb=20250126050713"
+          alt="Single Sighting Species thumbnail" />
+        <div class="meta">
+          <h3>Single Sighting Species</h3>
+          <p>Entire species are known from just one sighting. Where did they go? Did they ever exist at all?</p>
+        </div>
+      </a>
+    </div>
 
     <div class="hint">Scroll sideways</div>
   </div>
