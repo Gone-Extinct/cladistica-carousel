@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -7,114 +7,145 @@
 
   <style>
     :root{
-      --card-w: 340px;     /* width of each card */
-      --thumb-h: 170px;    /* image height */
+      /* Base sizing + look */
+      --card-min: 210px;          /* don’t let cards get too small */
+      --card-max: 280px;          /* don’t let cards get too large */
+      --cards-per-view: 2.6;      /* 2 full cards + a partial third (mockup-ish) */
+
+      --thumb-h: 150px;
       --radius: 18px;
+      --gap: 18px;
+
       --border: rgba(0,0,0,.15);
       --border-hover: rgba(0,0,0,.30);
       --bg: rgba(255,255,255,.92);
     }
 
-    body {
+    body{
       margin: 0;
       font-family: system-ui, -apple-system, sans-serif;
       background: transparent;
     }
 
-    .wrap { padding: 12px; }
+    .wrap{ padding: 12px; }
 
-    .title {
+    .title{
       font-size: 14px;
       letter-spacing: .02em;
       opacity: .8;
       margin: 0 0 10px 2px;
     }
 
-    .rail {
+    .rail{
       display: flex;
-      gap: 14px;
+      gap: var(--gap);
       overflow-x: auto;
-      padding: 2px 2px 10px 2px;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-    }
+      overflow-y: hidden;
 
-    .card {
-      min-width: var(--card-w);
-      max-width: var(--card-w);
+      /* edge breathing room so first/last cards are fully visible */
+      padding: 12px 16px;
+
+      /* “carousel” feel without UI chrome */
+      scroll-snap-type: x mandatory;
+      scroll-padding: 16px;
+      -webkit-overflow-scrolling: touch;
+
+      /* Hide scrollbars (no visible scroll indication) */
+      scrollbar-width: none;      /* Firefox */
+      -ms-overflow-style: none;   /* IE/old Edge */
+    }
+    .rail::-webkit-scrollbar{ display: none; } /* Chrome/Safari */
+
+    .card{
+      /* Key change: make card width depend on available rail width */
+      width: calc((100% - (var(--gap) * (var(--cards-per-view) - 1))) / var(--cards-per-view));
+
+      /* Safety rails so it still looks good at weird widths */
+      min-width: var(--card-min);
+      max-width: var(--card-max);
+
+      flex: 0 0 auto;
+
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      overflow: hidden;              /* makes image respect rounded corners */
+      overflow: hidden;           /* image respects rounded corners */
       background: var(--bg);
+
       scroll-snap-align: start;
+
       text-decoration: none;
       color: inherit;
       display: flex;
       flex-direction: column;
     }
 
-    .card:hover { border-color: var(--border-hover); }
+    .card:hover{ border-color: var(--border-hover); }
 
-    .thumb {
+    .thumb{
       width: 100%;
       height: var(--thumb-h);
-      object-fit: cover;             /* key: crops like a thumbnail */
+      object-fit: cover;
       object-position: center;
       display: block;
       background: #f2f2f2;
     }
 
-    .meta { padding: 14px; }
+    .meta{ padding: 14px; }
 
-    .card h3 {
+    .card h3{
       margin: 0 0 8px 0;
-      font-size: 22px;
-      line-height: 1.1;
+      font-size: 18px;
+      line-height: 1.15;
       letter-spacing: -0.01em;
     }
 
-    .card p {
+    .card p{
       margin: 0;
-      font-size: 15px;
+      font-size: 14px;
       line-height: 1.45;
       opacity: .85;
-    }
-
-    .hint {
-      font-size: 12px;
-      opacity: .6;
-      margin: 8px 2px 0 2px;
     }
   </style>
 </head>
 
 <body>
   <div class="wrap">
-    <div class="title">Explore</div>
+    <div class="title">Series</div>
 
     <div class="rail">
       <a class="card" href="PASTE_SERIES_LINK" target="_blank" rel="noopener">
-        <img class="thumb"
+        <img
+          class="thumb"
           src="https://upload.wikimedia.org/wikipedia/commons/7/71/Ara_tricolor.jpg"
-          alt="Hypothetical Taxa thumbnail" />
+          alt="Hypothetical Taxa thumbnail"
+        />
         <div class="meta">
           <h3>Hypothetical Taxa</h3>
-          <p>Some species are inferred entirely from fragments of fossils, remains, and historic accounts. They make for some of the most interesting to speculate about!</p>
+          <p>
+            Some species are inferred entirely from fragments of fossils, remains,
+            and historic accounts. They make for some of the most interesting to
+            speculate about!
+          </p>
         </div>
       </a>
 
       <a class="card" href="PASTE_SERIES_LINK" target="_blank" rel="noopener">
-        <img class="thumb"
+        <img
+          class="thumb"
           src="https://static.wikia.nocookie.net/cryptidz/images/9/9d/D_minimus_2.png/revision/latest?cb=20250126050713"
-          alt="Single Sighting Species thumbnail" />
+          alt="Single Sighting Species thumbnail"
+        />
         <div class="meta">
           <h3>Single Sighting Species</h3>
-          <p>Entire species are known from just one sighting. Where did they go? Did they ever exist at all?</p>
+          <p>
+            Entire species are known from just one sighting. Where did they go?
+            Did they ever exist at all?
+          </p>
         </div>
       </a>
-    </div>
 
-    <div class="hint">Scroll sideways</div>
+      <!-- Duplicate this <a class="card">...</a> block for more series -->
+    </div>
   </div>
 </body>
 </html>
